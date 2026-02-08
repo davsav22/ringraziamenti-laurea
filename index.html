@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="it">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Grazie di Cuore - Graduation Day</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700&family=Lato:wght@400;700&display=swap" rel="stylesheet">
+    
+    <style>
+      /* --- VARIABILI CSS E RESET --- */
+      :root {
+        --primary: #9e1b32;
+        --secondary: #2c3e50;
+        --accent: #eebb4d;
+        --bg: #fdfbf7;
+        --card: #ffffff;
+        --shadow: 0 10px 30px rgba(0,0,0,0.08);
+      }
+      
+      * { box-sizing: border-box; outline: none; }
+      
+      body {
+        margin: 0; padding: 0;
+        font-family: 'Lato', sans-serif;
+        background-color: var(--bg);
+        color: var(--secondary);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        min-height: 100vh;
+        background-image: radial-gradient(#e0e0e0 1px, transparent 1px);
+        background-size: 20px 20px;
+      }
+
+      .container {
+        width: 90%;
+        max-width: 450px;
+        background: var(--card);
+        padding: 40px 30px;
+        border-radius: 20px;
+        box-shadow: var(--shadow);
+        text-align: center;
+        position: relative;
+        overflow: hidden;
+        border-top: 6px solid var(--primary);
+      }
+
+      h1 {
+        font-family: 'Cinzel', serif;
+        color: var(--primary);
+        font-size: 28px;
+        margin-top: 0;
+        margin-bottom: 10px;
+        letter-spacing: 1px;
+      }
+
+      .subtitle {
+        color: #666;
+        font-size: 14px;
+        margin-bottom: 30px;
+        line-height: 1.5;
+      }
+
+      .input-wrapper {
+        position: relative;
+        margin-bottom: 25px;
+      }
+
+      input[type="text"] {
+        width: 100%;
+        padding: 15px;
+        font-size: 18px;
+        border: 2px solid #e0e0e0;
+        border-radius: 12px;
+        text-align: center;
+        transition: all 0.3s ease;
+        text-transform: uppercase;
+        letter-spacing: 2px;
+        font-weight: 700;
+        color: var(--secondary);
+      }
+
+      input[type="text"]:focus {
+        border-color: var(--primary);
+        box-shadow: 0 0 0 4px rgba(158, 27, 50, 0.1);
+      }
+
+      input::placeholder {
+        color: #ccc;
+        font-weight: 400;
+        letter-spacing: normal;
+        text-transform: none;
+      }
+
+      button.cta-btn {
+        background: linear-gradient(135deg, var(--primary) 0%, #7a1526 100%);
+        color: white;
+        border: none;
+        padding: 15px 40px;
+        font-size: 16px;
+        border-radius: 50px;
+        cursor: pointer;
+        font-weight: bold;
+        box-shadow: 0 5px 15px rgba(158, 27, 50, 0.3);
+        transition: transform 0.2s, box-shadow 0.2s;
+        width: 100%;
+        font-family: 'Cinzel', serif;
+      }
+
+      button.cta-btn:active {
+        transform: scale(0.98);
+        box-shadow: 0 2px 5px rgba(158, 27, 50, 0.2);
+      }
+
+      button.cta-btn:disabled {
+        opacity: 0.5;
+        cursor: not-allowed;
+      }
+
+      #result-card {
+        display: none;
+        animation: slideUp 0.6s cubic-bezier(0.2, 0.8, 0.2, 1);
+      }
+
+      .laurel-icon {
+        width: 60px;
+        height: auto;
+        margin-bottom: 20px;
+        fill: var(--accent);
+      }
+
+      .guest-name {
+        font-size: 24px;
+        font-family: 'Cinzel', serif;
+        color: var(--secondary);
+        margin-bottom: 20px;
+        border-bottom: 1px solid #eee;
+        padding-bottom: 15px;
+      }
+
+      .message-body {
+        font-size: 16px;
+        line-height: 1.8;
+        color: #444;
+        text-align: justify;
+        white-space: pre-wrap;
+        margin-bottom: 30px;
+      }
+
+      .loader {
+        display: none;
+        width: 40px;
+        height: 40px;
+        border: 3px solid #f3f3f3;
+        border-top: 3px solid var(--primary);
+        border-radius: 50%;
+        animation: spin 1s linear infinite;
+        margin: 20px auto;
+      }
+
+      .error-message {
+        color: #d32f2f;
+        background-color: #fdecea;
+        padding: 10px;
+        border-radius: 8px;
+        font-size: 14px;
+        margin-top: 15px;
+        display: none;
+        border-left: 4px solid #d32f2f;
+      }
+
+      @keyframes spin { 
+        0% { transform: rotate(0deg); } 
+        100% { transform: rotate(360deg); } 
+      }
+      
+      @keyframes slideUp { 
+        from { opacity: 0; transform: translateY(20px); } 
+        to { opacity: 1; transform: translateY(0); } 
+      }
+      
+      .footer {
+        margin-top: 30px;
+        font-size: 11px;
+        color: #aaa;
+      }
+    </style>
+  </head>
+  <body>
+
+    <div class="container" id="login-screen">
+      <svg class="laurel-icon" viewBox="0 0 24 24">
+        <path d="M12 3L1 9l11 6 9-4.91V17h2V9M5 13.18v4L12 21l7-3.82v-4L12 17l-7-3.82z" fill="#9e1b32"/>
+      </svg>
+      
+      <h1>Graduation Day</h1>
+      <p class="subtitle">Inserisci il codice personale presente sul tuo biglietto per leggere un pensiero speciale dedicato a te.</p>
+
+      <div class="input-wrapper">
+        <input type="text" id="code-input" placeholder="ES. NONNA01" onkeypress="handleEnter(event)">
+      </div>
+
+      <button class="cta-btn" onclick="submitCode()">Leggi il Messaggio</button>
+      
+      <div class="loader" id="loader"></div>
+      <div class="error-message" id="error-msg"></div>
+      
+      <div class="footer">Made with ❤ for the Graduates</div>
+    </div>
+
+    <div class="container" id="result-card">
+      <svg class="laurel-icon" viewBox="0 0 24 24" style="fill:#eebb4d">
+         <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
+      </svg>
+      
+      <div class="guest-name" id="display-name"></div>
+      <div class="message-body" id="display-msg"></div>
+      
+      <button class="cta-btn" onclick="location.reload()" style="background:#555; font-size:14px;">Torna Indietro</button>
+    </div>
+
+    <script>
+      // DATABASE INCORPORATO (Verrà generato dal file database.json)
+      // IMPORTANTE: Questo oggetto verrà sostituito automaticamente quando usi lo script di generazione
+            const DATABASE = {
+        "FLAVIA1": {
+          "nome": "Flavia",
+          "messaggio": "Moreeee"
+        },
+        "MAMMA1": {
+          "nome": "Sabrina",
+          "messaggio": "ciao mimo"
+        }
+      };
+
+      function handleEnter(e) {
+        if(e.key === 'Enter') submitCode();
+      }
+
+      function submitCode() {
+        const codeInput = document.getElementById('code-input');
+        const code = codeInput.value;
+        const loader = document.getElementById('loader');
+        const errorMsg = document.getElementById('error-msg');
+        const btn = document.querySelector('button.cta-btn');
+
+        errorMsg.style.display = 'none';
+        
+        if (!code || code.trim().length === 0) {
+          showError("Per favore, inserisci un codice.");
+          return;
+        }
+
+        loader.style.display = 'block';
+        btn.disabled = true;
+        btn.style.opacity = '0.5';
+
+        // Simula un piccolo delay per dare feedback visivo
+        setTimeout(() => {
+          const codiceClean = code.trim().toUpperCase();
+          
+          if (DATABASE[codiceClean]) {
+            // Successo
+            document.getElementById('login-screen').style.display = 'none';
+            document.getElementById('result-card').style.display = 'block';
+            document.getElementById('display-name').textContent = "Caro/a " + DATABASE[codiceClean].nome;
+            document.getElementById('display-msg').textContent = DATABASE[codiceClean].messaggio;
+          } else {
+            // Errore
+            loader.style.display = 'none';
+            btn.disabled = false;
+            btn.style.opacity = '1';
+            showError("Codice non trovato. Controlla di averlo scritto bene.");
+          }
+        }, 500);
+      }
+
+      function showError(msg) {
+        const el = document.getElementById('error-msg');
+        el.textContent = msg;
+        el.style.display = 'block';
+        const input = document.getElementById('code-input');
+        input.style.borderColor = '#d32f2f';
+        setTimeout(() => input.style.borderColor = '#e0e0e0', 2000);
+      }
+      
+      window.onload = function() {
+        document.getElementById('code-input').focus();
+        
+        // Supporto per URL con parametro code
+        const urlParams = new URLSearchParams(window.location.search);
+        const prefill = urlParams.get('code');
+        if(prefill) {
+           document.getElementById('code-input').value = prefill;
+           submitCode();
+        }
+      }
+    </script>
+  </body>
+</html>
